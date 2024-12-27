@@ -8,7 +8,7 @@ Duration : December 12th, 2024 to january 12th, 2025
 
 #OVERVIEW OF THE PROJECT
 
-The project is a **Task Management Tool** designed to help users manage and track their tasks efficiently. It is built using HTML, CSS, and JavaScript, with a clean, user-friendly interface. Here’s a breakdown of the project:
+OBJECTIVE:The project is a **Task Management Tool** designed to help users manage and track their tasks efficiently. It is built using HTML, CSS, and JavaScript, with a clean, user-friendly interface. Here’s a breakdown of the project:
 
 ### 1. **Features**
    - **Task Creation**: Users can enter a task name into an input field and add it to the list by clicking the "Add Task" button.
