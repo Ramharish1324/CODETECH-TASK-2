@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Management Tool</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 20px;
+      background-color: #333;
+      color: white;
+      align-items: center;
+    }
+
+    header .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    .task-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .task {
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .task:hover {
+      transform: scale(1.02);
+    }
+
+    h3 {
+      font-size: 20px;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .add-task {
+      display: flex;
+      margin-bottom: 20px;
+      gap: 10px;
+    }
+
+    .add-task input {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .add-task button {
+      background-color: #28a745;
+    }
+
+    .add-task button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">Task Management Tool</div>
+  </header>
+
+  <main>
+    <div class="add-task">
+      <input type="text" id="task-input" placeholder="Enter a new task...">
+      <button onclick="addTask()">Add Task</button>
+    </div>
+
+    <section class="task-list" id="task-list">
+      <!-- Tasks will appear here -->
+    </section>
+  </main>
+
+  <script>
+    let tasks = [];
+
+    function addTask() {
+      const taskInput = document.getElementById('task-input');
+      const taskName = taskInput.value.trim();
+
+      if (taskName === '') {
+        alert('Please enter a task.');
+        return;
+      }
+
+      const task = {
+        id: Date.now(),
+        name: taskName,
+        completed: false
+      };
+
+      tasks.push(task);
+      taskInput.value = '';
+      renderTasks();
+    }
+
+    function toggleTaskCompletion(taskId) {
+      tasks = tasks.map(task => 
+        task.id === taskId ? { ...task, completed: !task.completed } : task
+      );
+      renderTasks();
+    }
+
+    function deleteTask(taskId) {
+      tasks = tasks.filter(task => task.id !== taskId);
+      renderTasks();
+    }
+
+    function renderTasks() {
+      const taskList = document.getElementById('task-list');
+      taskList.innerHTML = '';
+
+      tasks.forEach(task => {
+        const taskDiv = document.createElement('div');
+        taskDiv.className = 'task';
+
+        taskDiv.innerHTML = `
+          <h3 style="text-decoration: ${task.completed ? 'line-through' : 'none'};">
+            ${task.name}
+          </h3>
+          <div>
+            <button onclick="toggleTaskCompletion(${task.id})">
+              ${task.completed ? 'Undo' : 'Complete'}
+            </button>
+            <button onclick="deleteTask(${task.id})" style="background-color: #dc3545;">
+              Delete
+            </button>
+          </div>
+        `;
+
+        taskList.appendChild(taskDiv);
+      });
+    }
+  </script>
+
+</body>
+</html>
